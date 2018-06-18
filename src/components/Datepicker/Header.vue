@@ -99,6 +99,7 @@ export default {
 
   &__month {
     font-weight: $bold;
+    color: $dark-text-color;
     text-align: center;
   }
 }
