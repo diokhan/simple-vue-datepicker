@@ -1,7 +1,5 @@
 <template lang="pug">
   .calendar
-    // .calendar-legend
-    //   span.calendar-legend__item(v-for="day in weekdays") {{ day }}
     .calendar-days-container
       table.calendar-table
         tr
@@ -23,6 +21,8 @@ import CalendarDay from './CalendarDay';
 import dateUtils from './dateUtils';
 import constants from './constants';
 
+const arrayOfNumbers = maxNumber => [...Array(maxNumber).keys()];
+
 export default {
   name: 'Calendar',
   components: {
@@ -35,21 +35,12 @@ export default {
     };
   },
   computed: {
-    monthMomentDate() { return dateUtils.parseDate(this.month); },
+    monthStartDate() {
+      return dateUtils.parseDate(this.month).clone().startOf('month');
+    },
     days() {
-      const startDate = this.monthMomentDate.clone().startOf('month');
+      const daysArray = this.getDummyDays().concat(this.getActualDays());
 
-      const arr = [...Array(this.monthMomentDate.daysInMonth()).keys()].map((dayNumber) => {
-        const date = startDate.clone().add(dayNumber, 'days');
-        return {
-          date,
-          state: this.getDayState(date),
-          timestamp: date.valueOf(), // this serves as an unique key for iterations
-        };
-      });
-
-      const weekday = startDate.day();
-      const daysArray = [...Array(weekday).keys()].map(() => ({ date: null, state: 'dummy' })).concat(arr);
       const daysByWeek = [];
       for (let i = 0; i < daysArray.length; i += 7) {
         daysByWeek.push(daysArray.slice(i, i + 7));
@@ -62,6 +53,20 @@ export default {
     },
   },
   methods: {
+    getDummyDays() { // blank days in front of actual days
+      return arrayOfNumbers(this.monthStartDate.day()).map(() => ({ state: 'dummy' }));
+    },
+    getActualDays() {
+      return arrayOfNumbers(this.monthStartDate.daysInMonth())
+        .map((dayNumber) => {
+          const date = this.monthStartDate.clone().add(dayNumber, 'days');
+          return {
+            date,
+            state: this.getDayState(date),
+            timestamp: date.valueOf(), // this serves as an unique key for iterations
+          };
+        });
+    },
     getDayState(date) {
       if (date.isAfter(moment(), 'day')) { return 'disabled'; }
       if (some(this.selectionDates, day => day.isSame(date, 'day'))) { return 'selected'; }
@@ -81,12 +86,9 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/stylesheets/constants.scss';
 
-.calendar {
-  display: flex;
-  flex-direction: column;
-}
-
 .calendar-table {
+  // initially I wanted to do these element as flexbox
+  // but I couldn't figure out clean enough way of handling borders
   border-collapse: collapse;
   border-spacing: 0px;
 

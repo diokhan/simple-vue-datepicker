@@ -43,7 +43,7 @@ export default {
       return dateUtils.formatMonth(dateUtils.parseDate(this.activeDate));
     },
     canGoBack() {
-      return this.activeMomentDate.diff(dateUtils.epochDate, 'months') > 1;
+      return this.activeMomentDate.diff(dateUtils.epochDate(), 'months') > 1;
     },
     canGoForward() {
       return dateUtils.currentDate().diff(this.activeMomentDate, 'months') !== 0;

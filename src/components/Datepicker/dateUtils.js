@@ -21,9 +21,8 @@ export default {
       .map(this.formatDate);
   },
   currentDate() { return moment(); },
-  epochDate: moment(0),
+  epochDate() { return moment(0); },
   currentDateString() { return this.formatDate(this.currentDate()); },
-  currentEpochString() { return this.formatDate(this.epochDate); },
   subtractMonth(dateString) { return this.parseDate(dateString).clone().subtract(1, 'month'); },
   addMonth(dateString) { return this.parseDate(dateString).clone().add(1, 'month'); },
 };

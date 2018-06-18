@@ -1,5 +1,5 @@
 {
-  "name": "vue-datepicker",
+  "name": "simple-vue-datepicker",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Sergey Zakirov <diokhan.again@gmail.com>",
@@ -16,6 +16,7 @@
     "@fortawesome/vue-fontawesome": "0.0.23",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
+    "npm": "^6.1.0",
     "vue": "^2.5.2"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-loader": "^1.7.1",
+    "eslint-plugin-html": "^4.0.3",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-vue": "^4.0.0",
     "extract-text-webpack-plugin": "^3.0.0",

@@ -19,6 +19,8 @@
 </template>
 
 <script>
+// Named it 'DatepickerHeader' instead of just 'Header'
+// to avoid naming collision with HTML's <header>
 import DatepickerHeader from './Header';
 import Calendar from './Calendar';
 import QuickLinks from './QuickLinks';
@@ -36,17 +38,18 @@ export default {
     return {
       startDate: this.value.startDate,
       endDate: this.value.endDate,
+      // Currently selected month, the one on the right of the datepicker
       activeMonth: this.value.endDate || dateUtils.currentDateString(),
       selection: [this.value.startDate, this.value.endDate],
     };
   },
   computed: {
-    leftMonth() { return dateUtils.formatDate(dateUtils.subtractMonth(this.activeMonth)); },
     sortedSelection() { return dateUtils.sortDates(this.selection); },
-    previousMonth() {
+    previousMonth() { // the one on the left
       return dateUtils.formatDate(dateUtils.subtractMonth(this.activeMonth));
     },
     selectionDates() { return this.selection.map(dateUtils.parseDate); },
+    isSelectionComplete() { return this.selection.length === 2; },
   },
   methods: {
     handleGoBack() {
@@ -57,10 +60,10 @@ export default {
     },
     handleDateSelect(date) {
       const formattedDate = dateUtils.formatDate(date);
-      if (this.selection.length < 2) {
-        this.selection = dateUtils.sortDates(this.selection.concat([formattedDate]));
-      } else {
+      if (this.isSelectionComplete) { // start from scratch
         this.selection = [formattedDate];
+      } else { // append to currently selected date
+        this.selection = dateUtils.sortDates(this.selection.concat([formattedDate]));
       }
 
       this.emitSelectionChange();
@@ -77,7 +80,7 @@ export default {
       this.emitSelectionChange();
     },
     emitSelectionChange() {
-      if (this.selection.length === 2) {
+      if (this.isSelectionComplete) {
         this.$emit('input', {
           startDate: dateUtils.formatDate(this.selectionDates[0]),
           endDate: dateUtils.formatDate(this.selectionDates[1]),

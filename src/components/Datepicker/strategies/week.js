@@ -8,9 +8,9 @@ const get = (baseDate) => {
 
 export default {
   current() {
-    return get.bind(this, dateUtils.currentDate());
+    return get(dateUtils.currentDate());
   },
   previous() {
-    return get.bind(this, dateUtils.currentDate().subtract(1, 'week'));
+    return get(dateUtils.currentDate().subtract(1, 'week'));
   },
 };

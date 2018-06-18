@@ -43,26 +43,26 @@ export default {
 @import '../../assets/stylesheets/constants.scss';
 
 .datepicker-quick-links {
+  height: 130px;
   border-top: $default-border;
   margin-top: 20px;
   padding: 10px 10px 0;
   display: flex;
   justify-content: flex-end;
   align-items: space-between;
-  height: 130px;
   flex-wrap: wrap;
 
   &__link {
+    width: 95px;
+    height: 25px;
+    padding: 5px;
     color: $link-color;
     font-size: $large-text;
     font-weight: $bold;
     text-transform: capitalize;
     cursor: pointer;
     display: inline-block;
-    padding: 5px;
-    width: 95px;
     vertical-align: middle;
-    height: 25px;
   }
 }
 </style>

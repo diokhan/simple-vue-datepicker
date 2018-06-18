@@ -12,17 +12,9 @@ import { includes } from 'lodash';
 
 export default {
   name: 'CalendarDay',
-  props: {
-    date: {
-      required: true,
-    },
-    state: {
-      required: true,
-    },
-  },
+  props: ['date', 'state'],
   data() {
     return {
-      stateClass: this.state,
       dateNumber: this.date && this.date.date(),
     };
   },
