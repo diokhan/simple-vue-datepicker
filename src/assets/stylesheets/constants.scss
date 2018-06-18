@@ -1,0 +1,17 @@
+$border-color: #ccc;
+$default-border: 1px solid $border-color;
+
+$white: #fff;
+$dark-blue: rgb(46, 103, 152);
+$light-blue: rgb(234, 243, 247);
+
+$hover-background-color: darken($white, 3%);
+
+$bold: 600;
+$small-text: 12px;
+$regular-text: 14px;
+$large-text: 16px;
+
+$text-color: #666;
+$link-color: rgb(34, 186, 226);
+$disabled-color: #ddd;
